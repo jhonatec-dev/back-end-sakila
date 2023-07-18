@@ -5,7 +5,8 @@ class ListActorsController {
   constructor(private listActorsUseCase: ListActorsUseCase) {}
   async handle(request: Request, response: Response): Promise<Response> {
     try {
-      const all = await this.listActorsUseCase.execute();
+      const {name, order, limit} = request.query;
+      const all = await this.listActorsUseCase.execute(name as string, order as string, limit as string);
       if(!all) {
         throw new Error("Actors not found");
       }
